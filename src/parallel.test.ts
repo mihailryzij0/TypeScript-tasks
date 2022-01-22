@@ -1,7 +1,7 @@
 import { Parallel } from "./parallel";
 
-describe("", () => {
-  it("Parallel should run expected number of jobs in parallel", async () => {
+describe("Parallel", () => {
+  it("returns the result of the work in the order of execution", async () => {
     const runner = new Parallel(2);
 
     const result = runner.jobs(
