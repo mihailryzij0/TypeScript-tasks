@@ -18,4 +18,3 @@ jobs:
       - name: Lint test
         run: |
           npm run test
-
