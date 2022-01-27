@@ -76,8 +76,7 @@ module.exports = {
   mode: NODE_ENV === "production" ? "production" : "development",
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.pug",
-      chunks: ["index"],
+      template: resolve(__dirname, "src/index.pug"),
     }),
     // new HtmlWebpackPlugin({
     //   template: "./src/feedBack.pug",
