@@ -6,23 +6,23 @@ export class Parallel {
   }
 
   async jobs(...args: Array<() => Promise<number>>): Promise<number[]> {
-    const result: number[] = [];
+    const jobs = [...args];
 
-    const steps = (): void => {
-      const items = args.shift();
-      if (items) {
-        items().then((value: number) => {
-          result.push(value);
-        });
+    return new Promise((resolve) => {
+      const result: number[] = [];
 
-        if (result.length === args.length) return undefined;
-        return steps();
-      }
-      return undefined;
-    };
+      const steps = (): void => {
+        const job = jobs.shift();
+        if (job) {
+          job().then((value: number) => {
+            result.push(value);
+            if (result.length === args.length) return resolve(result);
+            return steps();
+          });
+        }
+      };
 
-    for (let i = 0; i < this.streams; i += 1) steps();
-
-    return result;
+      for (let i = 0; i < this.streams; i += 1) steps();
+    });
   }
 }
